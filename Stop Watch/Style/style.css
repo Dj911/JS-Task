@@ -5,7 +5,7 @@
 }
 
 #screen{
-    height: 300px;
+    height: auto;
     width: 230px;
     padding: 10px;
     background-color: blue;
@@ -14,6 +14,11 @@
 }
 
 #disp{
+    width: auto;
+    border-style: solid;   
+    padding-inline: inherit; 
+}
+#lap-disp{
     width: auto;
     border-style: solid;   
     padding-inline: inherit; 

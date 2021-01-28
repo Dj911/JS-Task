@@ -22,7 +22,7 @@ let lapT = 0;
 
 let lapLabel = document.getElementById('lap');
 let totalTime = document.getElementById('total-time');
-let lapTime = document.getElementById('lapDiv');
+let lapTime = document.getElementById('lap-time');
 //localStorage.setItem('milesecond', ms);
 let strtInterval;
 let startBtnCnt = 0;
@@ -42,6 +42,11 @@ const setVal = () => {
     console.log('Page loaded');
     str = `${hr}:${mn}:${ss}`;
     disp.innerHTML = str;
+    totalTime.innerHTML = localStorage.getItem('totalTime');
+    lapTime.innerHTML = localStorage.getItem('lapTime');
+    lapCtn = localStorage.getItem('lapCtn');
+    lapLabel.innerHTML = lapCtn;
+    //logHistory(ss, mn, hr, lapCtn)
 }
 
 const startTimmer = () => {
@@ -92,8 +97,9 @@ const resetTimmer = () => {
     tmp_hr = 0;
     lapCtn = 0;
     lapLabel.innerHTML = 0;
-    //lapTime.innerText = '';
+    //lapTime.innerText = 'Lap Time:';
     totalTime.innerText = '';
+    lapTime.innerHTML = '';
     // timmerCounter = 'stop';
     localStorage.setItem('second', ss);
     localStorage.setItem('minute', mn);
@@ -129,8 +135,8 @@ const lapping = () => {
     str = `${hr.toString()}:${mn.toString()}:${ss.toString()}`;
     lapCtn++;
     let lap = document.getElementById('lap');
-    let lapTag = document.createElement('p');
-    lapTag.id = 'lap-time';
+    //let lapTag = document.createElement('br');
+    //lapTag.id = 'lap-time';
     tmp_ss = ss;
     tmp_mn = mn;
     tmp_hr = hr;
@@ -138,9 +144,15 @@ const lapping = () => {
     lap.innerHTML = lapCtn;
     // lapT = str;
     totalTime.innerHTML = str;
-    lapTag.innerHTML = `${str} Lap: ${lapCtn}`;
-    console.log(strtInterval);
-    lapTime.appendChild(lapTag);
+    let text = `${str} Lap: ${lapCtn} <br />`;
+    //lapTime.insertAdjacentText('beforeend', text);
+    lapTime.insertAdjacentHTML("beforeend", text);
+    localStorage.setItem('totalTime', totalTime.innerHTML);
+    localStorage.setItem('lapCtn', lapCtn);
+    //console.log(strtInterval);    
+    //lapTime.appendChild(lapTag);
+    localStorage.setItem('lapTime', lapTime.innerHTML.toString());
+    //console.log(localStorage.getItem('lapTime'))
     lapLabel.innerHTML = lapCtn;
 }
 
@@ -151,7 +163,7 @@ startBtn.addEventListener('click', () => {
         startBtnCnt++;
         ss++;
         disp.innerHTML = str;
-        strtInterval = setInterval(startTimmer, 1000);
+        strtInterval = setInterval(startTimmer, 999);
         //startBtn.hidden = true;
         //startBtn.classList.toggle('visibility');
     }
@@ -217,32 +229,39 @@ if (window.open) {
     let tmp_ss = timeDiff.toString().slice(-2);
     let tmp_mn = timeDiff.toString().slice(-4, -2);
     let tmp_hr = timeDiff.toString().slice(-6, -4);
+    let tmp_ss60 = 0;
+    let tmp_mn60 = 0;
+    let tmp_hr24 = 0;
+    if (tmp_ss === 6) {
+        tmp60 = tmp_ss - 60;
+        // if (tmp_mn >)
+    }
     console.log('tmps_ss ', tmp_ss, ' tmp_mn ', tmp_mn, ' tmp_hr ', tmp_hr);
     console.log(ss, mn, hr);
     if (localStorage.getItem('timmerCnt') === 'start') {
         if (timeDiff.toString().length <= 2) {
             ss = parseInt(ss) + parseInt(tmp_ss);
-            console.log('ss ', ss);
+            //console.log('ss ', ss);
             if (timeDiff.toString().length > 2 && timeDiff.toString().length <= 4) {
                 ss = parseInt(ss) + parseInt(tmp_ss);
                 mn = parseInt(mn) + parseInt(tmp_mn);
-                console.log('ss ', ss, ' mn ', mn);
+                //console.log('ss ', ss, ' mn ', mn);
                 if (timeDiff.toString().length > 4 && timeDiff.toString().length <= 6) {
                     ss = parseInt(ss) + parseInt(tmp_ss);
                     mn = parseInt(mn) + parseInt(tmp_mn);
                     hr = parseInt(hr) + parseInt(tmp_hr);
-                    console.log('ss ', ss, ' mn ', mn, ' hr ', hr);
+                    //console.log('ss ', ss, ' mn ', mn, ' hr ', hr);
                 }
             }
         }
-        strtInterval = setInterval(startTimmer, 1000);
+        strtInterval = setInterval(startTimmer, 999);
     }
-    console.log(openTime - localStorage.getItem('closeTime'), hr, mn, ss);
+    //console.log(openTime - localStorage.getItem('closeTime'), hr, mn, ss);
     localStorage.setItem('second', ss);
     localStorage.setItem('minute', mn);
     localStorage.setItem('hour', hr);
     setVal();
-    if (ss != 0) {
+    /* if (ss != 0) {
         console.log(hr, mn, d.getSeconds() - parseInt(ss));
         if (mn != 0) {
             console.log(hr, d.getMinutes() - parseInt(mn), d.getSeconds() - parseInt(ss));
@@ -250,7 +269,7 @@ if (window.open) {
                 console.log(d.getHours() - parseInt(hr), d.getMinutes() - parseInt(mn), d.getSeconds() - parseInt(ss));
             }
         }
-    }
+    } */
     /* console.log(test); */
-    console.log(str);
+    //console.log(str);
 }

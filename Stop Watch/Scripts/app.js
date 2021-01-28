@@ -155,11 +155,11 @@ const lapping = () => {
     } else if (total < 3600) {
         tmp_mn = parseInt(total / 60);
         tmp_ss = total % 60;
-        //console.log("tmp_hr: ", tmp_hr, ' tmp_mn: ', tmp_mn, ' tmp_ss: ', tmp_ss);
     }
     //console.log(total);
     lap.innerHTML = lapCtn;
     // lapT = str;
+    console.log("tmp_hr: ", tmp_hr, ' tmp_mn: ', tmp_mn, ' tmp_ss: ', tmp_ss);
     totalTime.innerHTML = str;
     let text = `${tmp_hr}:${tmp_mn}:${tmp_ss} Lap: ${lapCtn} <br />`;
     //lapTime.insertAdjacentText('beforeend', text);

@@ -23,6 +23,7 @@ let lapT = 0;
 let lapLabel = document.getElementById('lap');
 let totalTime = document.getElementById('total-time');
 let lapTime = document.getElementById('lap-time');
+let history = document.getElementById('history');
 //localStorage.setItem('milesecond', ms);
 let strtInterval;
 let startBtnCnt = 0;
@@ -46,7 +47,8 @@ const setVal = () => {
     lapTime.innerHTML = localStorage.getItem('lapTime');
     lapCtn = localStorage.getItem('lapCtn');
     lapLabel.innerHTML = lapCtn;
-    //logHistory(ss, mn, hr, lapCtn)
+
+    history.innerHTML = localStorage.getItem('history');
 }
 
 const startTimmer = () => {
@@ -125,6 +127,7 @@ const logHistory = (ss, mn, hr, lapLabel) => {
         p.insertBefore(li, p.childNodes[0]);
         //alert('Only 10 history allowed!!');
     }
+    localStorage.setItem('history', p.innerHTML);
     cnt++;
 }
 

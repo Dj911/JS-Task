@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="./Style/style.css" media="screen" />
-    </head>
-    <body>
-        <div id="main">
-            <div id="screen">
-                Lap: <label id="lap">0</label>
-                <p id="disp">123</p><br />
-                <!-- <p id="lap-disp">Lap Time Here</p><br /> -->
-                Overall Time:<p id="total-time"></p><br />
-                <div id="lapDiv">
-                    Lap Time:<p id="lap-time"></p><br />
-                </div>
-                <button id="start-btn">Start</button>
-                <button id="stop-btn">Stop</button>
-                <button id="lap-btn">Lap</button>
-                <button id="reset-btn">Reset</button>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="./Style/style.css" media="screen" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="screen">
+            Lap: <label id="lap">0</label>
+            <p id="disp">123</p><br />
+            <!-- <p id="lap-disp">Lap Time Here</p><br /> -->
+            Overall Time:<p id="total-time"></p><br />
+            <div id="lapDiv">
+                Lap Time:<p id="lap-time"></p><br />
             </div>
-            History:
-            <p id="history">                
-                <p id="history-list"></p><p id="lap-list"></p>
-            </p>
+            <button id="start-btn">Start</button>
+            <button id="stop-btn">Stop</button>
+            <button id="lap-btn">Lap</button>
+            <button id="reset-btn">Reset</button>
         </div>
-        <script src='./Scripts/app.js'></script>
-    </body>
+        History:
+        <p id="history">
+        <p id="history-list"></p>
+        <p id="lap-list"></p>
+        </p>
+    </div>
+    <script src='./Scripts/app.js'></script>
+</body>
+
 </html>

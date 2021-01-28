@@ -92,7 +92,7 @@ const resetTimmer = () => {
     tmp_hr = 0;
     lapCtn = 0;
     lapLabel.innerHTML = 0;
-    lapTime.innerText = '';
+    //lapTime.innerText = '';
     totalTime.innerText = '';
     // timmerCounter = 'stop';
     localStorage.setItem('second', ss);
@@ -217,27 +217,27 @@ if (window.open) {
     let tmp_ss = timeDiff.toString().slice(-2);
     let tmp_mn = timeDiff.toString().slice(-4, -2);
     let tmp_hr = timeDiff.toString().slice(-6, -4);
-    console.log('tmps_ss ',tmp_ss,' tmp_mn ',tmp_mn,' tmp_hr ',tmp_hr);
-    console.log(ss,mn,hr);
+    console.log('tmps_ss ', tmp_ss, ' tmp_mn ', tmp_mn, ' tmp_hr ', tmp_hr);
+    console.log(ss, mn, hr);
     if (localStorage.getItem('timmerCnt') === 'start') {
         if (timeDiff.toString().length <= 2) {
             ss = parseInt(ss) + parseInt(tmp_ss);
-            console.log('ss ',ss);
+            console.log('ss ', ss);
             if (timeDiff.toString().length > 2 && timeDiff.toString().length <= 4) {
                 ss = parseInt(ss) + parseInt(tmp_ss);
                 mn = parseInt(mn) + parseInt(tmp_mn);
-                console.log('ss ',ss,' mn ',mn);
+                console.log('ss ', ss, ' mn ', mn);
                 if (timeDiff.toString().length > 4 && timeDiff.toString().length <= 6) {
                     ss = parseInt(ss) + parseInt(tmp_ss);
                     mn = parseInt(mn) + parseInt(tmp_mn);
                     hr = parseInt(hr) + parseInt(tmp_hr);
-                    console.log('ss ',ss,' mn ',mn,' hr ',hr);
+                    console.log('ss ', ss, ' mn ', mn, ' hr ', hr);
                 }
             }
         }
         strtInterval = setInterval(startTimmer, 1000);
     }
-    console.log(openTime - localStorage.getItem('closeTime'), hr,mn,ss);
+    console.log(openTime - localStorage.getItem('closeTime'), hr, mn, ss);
     localStorage.setItem('second', ss);
     localStorage.setItem('minute', mn);
     localStorage.setItem('hour', hr);

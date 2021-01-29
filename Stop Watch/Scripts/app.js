@@ -122,7 +122,7 @@ const resetTimmer = () => {
 }
 
 // History
-
+let i=0;
 const logHistory = (ss, mn, hr, lapLabel) => {
     //localStorage.setItem('cnt', cnt);
     let p = document.getElementById('history');
@@ -135,7 +135,11 @@ const logHistory = (ss, mn, hr, lapLabel) => {
     if (cnt < 10) {
         p.appendChild(li);
     } else {
-        p.replaceChild(li, p.childNodes[0]);        
+        if(i>=10){
+            i=0;
+        }
+        p.replaceChild(li, p.childNodes[i]);        
+        i++;
         //alert('Only 10 history allowed!!');
     }
     setItem('history', p.innerHTML);

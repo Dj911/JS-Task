@@ -1,3 +1,4 @@
+// Constant DOM declaration
 const disp = document.getElementById('disp');
 const startBtn = document.getElementById('start-btn');
 const stopBtn = document.getElementById('stop-btn');
@@ -5,6 +6,13 @@ const lapBtn = document.getElementById('lap-btn');
 const lapDisp = document.getElementById('lap-disp');
 const resetBtn = document.getElementById('reset-btn');
 
+// Variable DOM declaration
+let lapLabel = document.getElementById('lap');
+let totalTime = document.getElementById('total-time');
+let lapTime = document.getElementById('lap-time');
+let history = document.getElementById('history');
+
+// Variable Declaration
 let dispType = 'no-lap';
 let timmerCounter;
 
@@ -20,10 +28,6 @@ let cnt = 0;
 let lapCtn = 0;
 let lapT = 0;
 
-let lapLabel = document.getElementById('lap');
-let totalTime = document.getElementById('total-time');
-let lapTime = document.getElementById('lap-time');
-let history = document.getElementById('history');
 //localStorage.setItem('milesecond', ms);
 let strtInterval;
 let startBtnCnt = 0;
@@ -34,29 +38,36 @@ let closeTime;   // Storing the last date when browser is closed
 let openTime;
 let timeDiff = 0;
 
+const getItem = (name)=>{
+    return localStorage.getItem(name);
+}
+const setItem = (name,value)=>{
+    return localStorage.setItem(name,value);
+}
 
+// Setting Value
 const setVal = () => {
     //ms = localStorage.getItem('milesecond');
-    ss = (localStorage.getItem('second') === 'null') ? 0 : localStorage.getItem('second');
-    mn = (localStorage.getItem('minute') === 'null') ? 0 : localStorage.getItem('minute');
-    hr = (localStorage.getItem('hour') === 'null') ? 0 : localStorage.getItem('hour');
-    cnt = localStorage.getItem('cnt');
+    ss = (getItem('second') === 'null') ? 0 : getItem('second');
+    mn = (getItem('minute') === 'null') ? 0 : getItem('minute');
+    hr = (getItem('hour') === 'null') ? 0 : getItem('hour');
+    cnt = getItem('cnt');
     console.log('Page loaded');
     str = `${hr}:${mn}:${ss}`;
     disp.innerHTML = str;
-    totalTime.innerHTML = localStorage.getItem('totalTime');
-    lapTime.innerHTML = localStorage.getItem('lapTime');
-    lapCtn = localStorage.getItem('lapCtn');
+    totalTime.innerHTML = getItem('totalTime');
+    lapTime.innerHTML = getItem('lapTime');
+    lapCtn = getItem('lapCtn');
     lapLabel.innerHTML = lapCtn;
 
-    history.innerHTML = localStorage.getItem('history');
+    history.innerHTML = getItem('history');
 }
 
 const startTimmer = () => {
-    localStorage.setItem('second', ss);
-    localStorage.setItem('minute', mn);
-    localStorage.setItem('hour', hr);
-    localStorage.setItem('timmerCnt', 'start');
+    setItem('second', ss);
+    setItem('minute', mn);
+    setItem('hour', hr);
+    setItem('timmerCnt', 'start');
     // let ctc = 0
     // ctc = Date.prototype.getSeconds()*0+1
     let str = `${hr}:${mn}:${ss}`;
@@ -83,7 +94,7 @@ const startTimmer = () => {
 const stopTimmer = () => {
     //startBtn.hidden = false;
     // timmerCounter = 'stop'
-    localStorage.setItem('timmerCnt', 'stop');
+    setItem('timmerCnt', 'stop');
     startBtnCnt = 0;
     clearInterval(strtInterval);
     str = `${hr.toString()}:${mn.toString()}:${ss.toString()}`;
@@ -101,16 +112,17 @@ const resetTimmer = () => {
     lapLabel.innerHTML = 0;
     totalTime.innerText = '';
     lapTime.innerHTML = '';
-    localStorage.setItem('second', ss);
-    localStorage.setItem('minute', mn);
-    localStorage.setItem('hour', hr);
-    localStorage.setItem('timmerCnt', 'stop');
+    setItem('second', ss);
+    setItem('minute', mn);
+    setItem('hour', hr);
+    setItem('timmerCnt', 'stop');
     stopTimmer();
     disp.innerHTML = str
     console.log(str);
 }
 
 // History
+
 const logHistory = (ss, mn, hr, lapLabel) => {
     //localStorage.setItem('cnt', cnt);
     let p = document.getElementById('history');
@@ -123,10 +135,10 @@ const logHistory = (ss, mn, hr, lapLabel) => {
     if (cnt < 10) {
         p.appendChild(li);
     } else {
-        p.replaceChild(li, p.childNodes[0]);
+        p.replaceChild(li, p.childNodes[0]);        
         //alert('Only 10 history allowed!!');
     }
-    localStorage.setItem('history', p.innerHTML);
+    setItem('history', p.innerHTML);
     cnt++;
 }
 
@@ -210,11 +222,11 @@ window.addEventListener('beforeunload', (e) => {
     console.log('hr:', d.getHours())
     str = `${hr.toString()}:${mn.toString()}:${ss.toString()}`;
     let clt = `${d.getHours()}${d.getMinutes()}${d.getSeconds()}`
-    localStorage.setItem('closeTime', clt);
-    localStorage.setItem('cnt', cnt);
-    localStorage.setItem('lapCtn', lapCtn);
-    localStorage.setItem('totalTime', totalTime.innerHTML);
-    localStorage.setItem('lapTime', lapTime.innerHTML.toString());
+    setItem('closeTime', clt);
+    setItem('cnt', cnt);
+    setItem('lapCtn', lapCtn);
+    setItem('totalTime', totalTime.innerHTML);
+    setItem('lapTime', lapTime.innerHTML.toString());
     console.log(str);
     console.log(localStorage.getItem('closeTime') - openTime);
     e.returnValue = closeTime;
@@ -225,7 +237,7 @@ if (window.open) {
     openTime = clt;
     setVal();
     console.log("Page opened!!");
-    timeDiff = openTime - localStorage.getItem('closeTime');
+    timeDiff = openTime - getItem('closeTime');
     let tmp_ss = timeDiff.toString().slice(-2);
     let tmp_mn = timeDiff.toString().slice(-4, -2);
     let tmp_hr = timeDiff.toString().slice(-6, -4);
@@ -257,8 +269,8 @@ if (window.open) {
         strtInterval = setInterval(startTimmer, 999);
     }
     //console.log(openTime - localStorage.getItem('closeTime'), hr, mn, ss);
-    localStorage.setItem('second', ss);
-    localStorage.setItem('minute', mn);
-    localStorage.setItem('hour', hr);
+    setItem('second', ss);
+    setItem('minute', mn);
+    setItem('hour', hr);
     setVal();
 }

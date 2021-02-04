@@ -39,7 +39,7 @@ let openTime;
 let timeDiff = 0;
 
 const getItem = (name)=>{
-    return localStorage.getItem(name);
+    return (localStorage.getItem(name) === 'null') ? 0 : localStorage.getItem(name);
 }
 const setItem = (name,value)=>{
     return localStorage.setItem(name,value);
@@ -48,25 +48,25 @@ const setItem = (name,value)=>{
 // Setting Value
 const setVal = () => {
     //ms = localStorage.getItem('milesecond');
-    ss = (getItem('second') === 'null') ? 0 : getItem('second');
-    mn = (getItem('minute') === 'null') ? 0 : getItem('minute');
-    hr = (getItem('hour') === 'null') ? 0 : getItem('hour');
+    ss = getItem('second')
+    mn = getItem('minute')
+    hr = getItem('hour')
     cnt = getItem('cnt');
     console.log('Page loaded');
-    str = `${hr}:${mn}:${ss}`;
-    disp.innerHTML = str;
     totalTime.innerHTML = getItem('totalTime');
     lapTime.innerHTML = getItem('lapTime');
     lapCtn = getItem('lapCtn');
+    str = `${hr}:${mn}:${ss}`;
+    disp.innerHTML = str;
     lapLabel.innerHTML = lapCtn;
 
     history.innerHTML = getItem('history');
 }
 
 const startTimmer = () => {
-    setItem('second', ss);
-    setItem('minute', mn);
-    setItem('hour', hr);
+    // setItem('second', ss);
+    // setItem('minute', mn);
+    // setItem('hour', hr);
     setItem('timmerCnt', 'start');
     // let ctc = 0
     // ctc = Date.prototype.getSeconds()*0+1
@@ -226,6 +226,10 @@ window.addEventListener('beforeunload', (e) => {
     console.log('hr:', d.getHours())
     str = `${hr.toString()}:${mn.toString()}:${ss.toString()}`;
     let clt = `${d.getHours()}${d.getMinutes()}${d.getSeconds()}`
+    setItem('second', ss);
+    setItem('minute', mn);
+    setItem('hour', hr);
+    //setItem('timmerCnt', 'start');
     setItem('closeTime', clt);
     setItem('cnt', cnt);
     setItem('lapCtn', lapCtn);

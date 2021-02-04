@@ -38,11 +38,11 @@ let closeTime;   // Storing the last date when browser is closed
 let openTime;
 let timeDiff = 0;
 
-const getItem = (name)=>{
+const getItem = (name) => {
     return localStorage.getItem(name);
 }
-const setItem = (name,value)=>{
-    return localStorage.setItem(name,value);
+const setItem = (name, value) => {
+    return localStorage.setItem(name, value);
 }
 
 // Setting Value
@@ -122,7 +122,7 @@ const resetTimmer = () => {
 }
 
 // History
-let i=0;
+let i = 0;
 const logHistory = (ss, mn, hr, lapLabel) => {
     //localStorage.setItem('cnt', cnt);
     let p = document.getElementById('history');
@@ -135,10 +135,10 @@ const logHistory = (ss, mn, hr, lapLabel) => {
     if (cnt < 10) {
         p.appendChild(li);
     } else {
-        if(i>=10){
-            i=0;
+        if (i >= 10) {
+            i = 0;
         }
-        p.replaceChild(li, p.childNodes[i]);        
+        p.replaceChild(li, p.childNodes[i]);
         i++;
         //alert('Only 10 history allowed!!');
     }
@@ -157,11 +157,11 @@ const lapping = () => {
     let tmp_totalSec = 0;
     //let lapTag = document.createElement('br');
     //lapTag.id = 'lap-time';
-    // tmp_ss = (ss >= tmp_ss) ? (ss - tmp_ss) : (60 - tmp_ss + ss);
-    // tmp_mn = (mn >= tmp_mn) ? (mn - tmp_mn) : (60 - tmp_mn + mn);
-    // tmp_hr = (hr >= tmp_hr) ? (hr - tmp_hr) : (60 - tmp_hr + hr);
+    tmp_ss = getItem('tmp_ss');
+    tmp_mn = getItem('tmp_mn');
+    tmp_hr = getItem('tmp_hr');
     totalSec = ss + mn * 60 + hr * 3600;
-    tmp_totalSec = tmp_ss + tmp_mn + tmp_hr;
+    tmp_totalSec = parseInt(tmp_ss) + parseInt(tmp_mn) + parseInt(tmp_hr);
     let total = totalSec - tmp_totalSec;
     if (total > 3600) {
         tmp_hr = parseInt(total / 3600);
@@ -177,7 +177,7 @@ const lapping = () => {
     // lapT = str;
     console.log("tmp_hr: ", tmp_hr, ' tmp_mn: ', tmp_mn, ' tmp_ss: ', tmp_ss);
     totalTime.innerHTML = str;
-    let text = `${tmp_hr}:${tmp_mn}:${tmp_ss} Lap: ${lapCtn} <br />`;
+    let text = `${tmp_hr}:${tmp_mn}:${tmp_ss} Lap: ${lapCtn} Overall Time: ${str} <br />`;
     //lapTime.insertAdjacentText('beforeend', text);
     lapTime.insertAdjacentHTML("beforeend", text);
     tmp_ss = ss;
@@ -189,6 +189,9 @@ const lapping = () => {
     //lapTime.appendChild(lapTag);
     // localStorage.setItem('lapTime', lapTime.innerHTML.toString());
     //console.log(localStorage.getItem('lapTime'))
+    setItem('tmp_ss', tmp_ss);
+    setItem('tmp_mn', tmp_mn);
+    setItem('tmp_hr', tmp_hr);
     lapLabel.innerHTML = lapCtn;
 }
 
@@ -226,6 +229,9 @@ window.addEventListener('beforeunload', (e) => {
     console.log('hr:', d.getHours())
     str = `${hr.toString()}:${mn.toString()}:${ss.toString()}`;
     let clt = `${d.getHours()}${d.getMinutes()}${d.getSeconds()}`
+    setItem('tmp_ss', tmp_ss);
+    setItem('tmp_mn', tmp_mn);
+    setItem('tmp_hr', tmp_hr);
     setItem('closeTime', clt);
     setItem('cnt', cnt);
     setItem('lapCtn', lapCtn);
@@ -257,6 +263,10 @@ if (window.open) {
     if (localStorage.getItem('timmerCnt') === 'start') {
         if (timeDiff.toString().length <= 2) {
             ss = parseInt(ss) + parseInt(tmp_ss);
+            if (ss >= 60) {
+                ss = ss - 60;
+                mn++;
+            }
             //console.log('ss ', ss);
             if (timeDiff.toString().length > 2 && timeDiff.toString().length <= 4) {
                 ss = parseInt(ss) + parseInt(tmp_ss);
@@ -271,6 +281,10 @@ if (window.open) {
             }
         }
         strtInterval = setInterval(startTimmer, 999);
+    }
+    if (history.childElementCount != 10) {
+        setItem('cnt', history.childElementCount);
+        console.log('cnt: ', cnt);
     }
     //console.log(openTime - localStorage.getItem('closeTime'), hr, mn, ss);
     setItem('second', ss);

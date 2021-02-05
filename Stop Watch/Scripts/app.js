@@ -115,6 +115,9 @@ const resetTimmer = () => {
     setItem('second', ss);
     setItem('minute', mn);
     setItem('hour', hr);
+    setItem('tmp_ss', tmp_ss);
+    setItem('tmp_mn', tmp_mn);
+    setItem('tmp_hr', tmp_hr);
     setItem('timmerCnt', 'stop');
     stopTimmer();
     disp.innerHTML = str
@@ -210,7 +213,12 @@ startBtn.addEventListener('click', () => {
 stopBtn.addEventListener('click', stopTimmer);
 
 //Lapping the time
-lapBtn.addEventListener('click', lapping);
+lapBtn.addEventListener('click', () => {
+    // setItem('tmp_ss', tmp_ss);
+    // setItem('tmp_mn', tmp_mn);
+    // setItem('tmp_hr', tmp_hr);
+    lapping()
+});
 
 // Reset button
 resetBtn.addEventListener('click', resetTimmer);

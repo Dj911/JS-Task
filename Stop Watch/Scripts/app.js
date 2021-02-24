@@ -294,6 +294,8 @@ if (window.open) {
         setItem('cnt', history.childElementCount);
         console.log('cnt: ', cnt);
     }
+
+
     //console.log(openTime - localStorage.getItem('closeTime'), hr, mn, ss);
     setItem('second', ss);
     setItem('minute', mn);

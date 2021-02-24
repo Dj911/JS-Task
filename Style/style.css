@@ -1,0 +1,25 @@
+#main{
+    height: auto;
+    width: auto;
+    align-content: center;
+}
+
+#screen{
+    height: auto;
+    width: 230px;
+    padding: 10px;
+    background-color: blue;
+    /* padding-inline: inherit;     */
+    /* align-content: center;     */
+}
+
+#disp{
+    width: auto;
+    border-style: solid;   
+    padding-inline: inherit; 
+}
+#lap-disp{
+    width: auto;
+    border-style: solid;   
+    padding-inline: inherit; 
+}
